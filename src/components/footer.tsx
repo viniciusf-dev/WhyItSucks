@@ -13,8 +13,8 @@ const Footer = () => {
     
     // Play 8-bit blip sound if sound is on
     if (soundOn) {
-      const audio = new Audio('https://www.soundjay.com/buttons/sounds/button-35.mp3');
-      audio.volume = 0.2;
+      const audio = new Audio('/nier-track.mp3');
+      audio.volume = 0.8;
       audio.play().catch(e => console.log('Audio play failed:', e));
     }
   };
@@ -78,7 +78,7 @@ const Footer = () => {
               <div className="w-8 h-8 bg-retro-purple rounded-md animate-pulse"></div>
             )}
           </div>
-          <p className="text-xs text-retro-purple font-pixel">© 2023 WhyItSucks</p>
+          <p className="text-xs text-retro-purple font-pixel">© 2025 WhyItSucks</p>
         </div>
       </div>
       
