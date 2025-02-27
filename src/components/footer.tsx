@@ -1,5 +1,7 @@
+"use client";
+
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { Info, HelpCircle, Send, Volume2, VolumeX } from 'lucide-react';
 
 const Footer = () => {
@@ -44,15 +46,15 @@ const Footer = () => {
         </div>
         
         <div className="flex space-x-6">
-          <Link to="/about" className="text-retro-purple hover:text-white transition-colors flex items-center">
+          <Link href="/about" className="text-retro-purple hover:text-white transition-colors flex items-center">
             <Info size={20} className="mr-2" />
             <span className="text-sm font-pixel">About</span>
           </Link>
-          <Link to="/how-it-works" className="text-retro-purple hover:text-white transition-colors flex items-center">
+          <Link href="/how-it-works" className="text-retro-purple hover:text-white transition-colors flex items-center">
             <HelpCircle size={20} className="mr-2" />
             <span className="text-sm font-pixel">How It Works</span>
           </Link>
-          <Link to="/contact" className="text-retro-purple hover:text-white transition-colors flex items-center">
+          <Link href="/contact" className="text-retro-purple hover:text-white transition-colors flex items-center">
             <Send size={20} className="mr-2" />
             <span className="text-sm font-pixel">Contact</span>
           </Link>

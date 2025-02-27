@@ -1,5 +1,7 @@
+"use client";
+
 import { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 const Header = () => {
   const [isGlitching, setIsGlitching] = useState(false);
@@ -11,14 +13,14 @@ const Header = () => {
         setIsGlitching(true);
         setTimeout(() => setIsGlitching(false), 500);
       }
-    }, 3000);
+    }, 1000);
 
     return () => clearInterval(glitchInterval);
   }, []);
 
   return (
     <header className="flex flex-col justify-center items-center py-8 w-full">
-      <Link to="/" className="inline-block">
+      <Link href="/" className="inline-block">
         <div className="relative">
           <h1 className={`text-3xl md:text-5xl font-pixel text-white mb-2 ${isGlitching ? 'animate-glitch' : ''}`}>
             <span className="text-retro-red">Why</span>

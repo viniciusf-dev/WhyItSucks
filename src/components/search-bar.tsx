@@ -1,11 +1,13 @@
+"use client";
+
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { Search, Gamepad2 } from 'lucide-react';
 
 const SearchBar = () => {
   const [game, setGame] = useState('');
   const [isSearching, setIsSearching] = useState(false);
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -14,7 +16,7 @@ const SearchBar = () => {
     setIsSearching(true);
     // Simulate API call with timeout
     setTimeout(() => {
-      navigate(`/results?game=${encodeURIComponent(game)}`);
+      router.push(`/results?game=${encodeURIComponent(game)}`);
       setIsSearching(false);
     }, 1000);
   };

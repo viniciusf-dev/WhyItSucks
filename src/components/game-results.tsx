@@ -1,8 +1,10 @@
+"use client";
+
 import { useEffect, useState } from 'react';
 import { Quote } from 'lucide-react';
 import ProblemMeter from './problem-meter';
+import ProblemCategory, { CategoryData } from './problem-category';
 import TopComplaints from './top-complaints';
-import ProblemCategory, {CategoryData} from './problem-category';
 
 type GameResultsProps = {
   gameName: string;
