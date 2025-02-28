@@ -121,6 +121,28 @@
   .glow-text {
     text-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
   }
+
+  .scrollbar::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  .scrollbar::-webkit-scrollbar-track {
+    background: #000000;
+    border: 2px solid #000000;
+  }
+  
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: #9b87f5;
+    border: 2px solid #000000;
+  }
+  
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #7E69AB;
+  }
+  
+  .scrollbar::-webkit-scrollbar-corner {
+    background: #000000;
+  }
 }
 
 @layer utilities {

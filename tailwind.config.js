@@ -77,6 +77,13 @@ module.exports = {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' },
         },
+
+        'pixel-explosion': {
+      '0%': { opacity: 0, transform: 'scale(0.5) rotate(0deg)' },
+      '40%': { opacity: 1, transform: 'scale(1.2) rotate(10deg)' },
+      '80%': { opacity: 1, transform: 'scale(0.9) rotate(-10deg)' },
+      '100%': { opacity: 1, transform: 'scale(1) rotate(0deg)' },
+    },
         'glitch': {
           '0%': { 
             transform: 'translate(0)' 
@@ -139,6 +146,7 @@ module.exports = {
         'pulse': 'pulse 2s ease-in-out infinite',
         'screen-wipe': 'screen-wipe 0.5s ease-out',
         'spin-pixel': 'spin-pixel 2s steps(4) infinite',
+        'pixel-explosion': 'pixel-explosion 0.5s ease-out',
       },
       boxShadow: {
         'pixel': '5px 5px 0px rgba(0, 0, 0, 0.5)',
