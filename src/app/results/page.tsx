@@ -24,7 +24,6 @@ export default function Results() {
     
     setGameName(game);
     
-    // Simulate loading
     setTimeout(() => {
       setLoading(false);
     }, 2000);

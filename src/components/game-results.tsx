@@ -10,7 +10,6 @@ type GameResultsProps = {
   gameName: string;
 };
 
-// Mock data - in a real app, this would come from an API
 const getMockData = (gameName: string) => {
   return {
     problemLevel: 78,
@@ -40,7 +39,6 @@ const GameResults = ({ gameName }: GameResultsProps) => {
   const [textComplete, setTextComplete] = useState(false);
   
   useEffect(() => {
-    // Simulate API call
     setTimeout(() => {
       setResults(getMockData(gameName));
       setLoading(false);
