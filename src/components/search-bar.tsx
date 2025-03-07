@@ -19,7 +19,6 @@ const SearchBar = () => {
 
   const router = useRouter();
 
-  // Use um ref para armazenar a função debounced
   const debouncedSearchRef = useRef(
     debounce(async (searchTerm: string) => {
       if (searchTerm.trim().length < 2) {
@@ -49,14 +48,13 @@ const SearchBar = () => {
 
         setShowResults(true);
       } catch (err) {
-        console.error("Erro na busca (debounce):", err);
+        console.error("Failed to fetch (debounce):", err);
         setSearchResults([]);
         setShowResults(false);
       }
     }, 300)
   );
 
-  // Simplifique o uso, só pra ficar mais legível
   const debouncedSearch = debouncedSearchRef.current;
 
   useEffect(() => {
@@ -69,7 +67,6 @@ const SearchBar = () => {
       setShowResults(false);
     }
 
-    // Não coloque "debouncedSearch" no array de dependências
     return () => {
       debouncedSearch.cancel();
     };
@@ -97,28 +94,28 @@ const SearchBar = () => {
     const searchTerm = selectedGame ? selectedGame.name : game;
 
     try {
-      console.log("Iniciando fetch de reviews para:", searchTerm);
+      console.log("Starting fetch reviews:", searchTerm);
       const response = await fetch(
         `/api/search?game=${encodeURIComponent(searchTerm)}&fetchReviews=true`
       );
 
-      console.log("Resposta da rota /api/search - status:", response.status);
+      console.log("API return:", response.status);
 
       if (!response.ok) {
         const errorText = await response.text();
-        console.error("Erro ao buscar reviews:", errorText);
-        throw new Error(`Erro HTTP: ${response.status}`);
+        console.error("Failed to fetch reviews:", errorText);
+        throw new Error(`HTTP error: ${response.status}`);
       }
 
       const data = await response.json();
-      console.log("Dados recebidos da API (com reviews ou não):", data);
+      console.log("Received data from API:", data);
 
       localStorage.setItem("steamSearchData", JSON.stringify(data));
 
-      console.log("Redirecionando para /results...");
+      console.log("Redirecting to /results...");
       router.push(`/results?game=${encodeURIComponent(searchTerm)}`);
     } catch (err) {
-      console.error("Catch - erro ao buscar reviews:", err);
+      console.error("Catch - failed to fetch reviews:", err);
     } finally {
       setIsSearching(false);
       setShowResults(false);

@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { Info, HelpCircle, Send, Volume2, VolumeX } from "lucide-react";
+import { Info, HelpCircle, Send, Volume2, VolumeX, Github } from "lucide-react";
 
 export default function Footer() {
   const [showEasterEgg, setShowEasterEgg] = useState(false);
@@ -69,11 +69,11 @@ export default function Footer() {
             <span className="text-sm font-pixel">How It Works</span>
           </Link>
           <Link
-            href="/contact"
+            href="https://github.com/viniciusf-dev/WhyItSucks"
             className="text-retro-purple hover:text-white transition-colors flex items-center"
           >
-            <Send size={20} className="mr-2" />
-            <span className="text-sm font-pixel">Contact</span>
+            <Github size={20} className="mr-2" />
+            <span className="text-sm font-pixel">Code With Us</span>
           </Link>
         </div>
       </div>

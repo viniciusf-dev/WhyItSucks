@@ -3,7 +3,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 export async function summarizeReviews(reviews: any[], gameName: string): Promise<string | null> {
   if (!reviews || reviews.length === 0) {
     return `{
-      "problemSummary": "Sem reviews disponíveis para análise",
+      "problemSummary": "No reviews were found for analysis",
       "totalReviewsAnalyzed": 0,
       "problemCategories": [
         {
@@ -141,7 +141,7 @@ export async function summarizeReviews(reviews: any[], gameName: string): Promis
     const summary = result.response.text();
     return summary;
   } catch (error) {
-    console.error("Erro ao chamar Google Generative AI:", error);
+    console.error("Failed to call AI API:", error);
     return null;
   }
 }

@@ -21,7 +21,7 @@ export async function getGamesByName(gameName: string, limit = 10) {
     const regex = new RegExp(gameName, "i");
     return await collection.find({ name: { $regex: regex } }).limit(limit).toArray();
   } catch (error) {
-    console.error("Erro ao buscar jogos no MongoDB:", error);
+    console.error("Failed to fetch games on MongoDb:", error);
     throw error; 
   }
 }

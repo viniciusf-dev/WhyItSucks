@@ -5,14 +5,14 @@ export async function fetchSteamReviews(appId: string | number) {
       const reviewResponse = await fetch(reviewUrl);
   
       if (!reviewResponse.ok) {
-        console.error("Falha ao buscar reviews. Status:", reviewResponse.status);
+        console.error("Failed to fetch reviews. Status:", reviewResponse.status);
         return null;
       }
   
       const reviewData = await reviewResponse.json();
       return reviewData;
     } catch (error) {
-      console.error("Erro ao buscar reviews da Steam:", error);
+      console.error("Failed to fetch steam reviews:", error);
       return null;
     }
   }

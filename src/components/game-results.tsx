@@ -30,7 +30,7 @@ const GameResults = ({ gameName }: GameResultsProps) => {
           setSummaryData(null);
         }
       } catch (err) {
-        console.error("Erro ao analisar dados do localStorage:", err);
+        console.error("Failed to fetch localStorage data:", err);
         setSummaryData(null);
       }
     } else {
@@ -45,7 +45,7 @@ const GameResults = ({ gameName }: GameResultsProps) => {
   useEffect(() => {
     if (!summaryData || textComplete) return;
 
-    const text = summaryData.problemSummary ?? "Sem resumo disponível...";
+    const text = summaryData.problemSummary ?? "No available summary...";
     let index = 0;
 
     const typingInterval = setInterval(() => {
@@ -62,15 +62,15 @@ const GameResults = ({ gameName }: GameResultsProps) => {
   }, [summaryData, textComplete]);
 
   if (loading) {
-    return <p>Carregando...</p>;
+    return <p>Loading...</p>;
   }
 
   if (!summaryData) {
     return (
       <p>
-        Nenhum dado encontrado para "
-        <strong>{gameName}</strong>". Pode ser que você tenha acessado a página
-        de resultados diretamente sem fazer a busca antes.
+        No data found for "
+        <strong>{gameName}</strong>". Maybe you are acessing results page
+        directly instead of fetching for a game.
       </p>
     );
   }
