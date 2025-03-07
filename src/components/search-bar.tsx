@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Search, Gamepad2, X } from "lucide-react";
 import debounce from "lodash/debounce";
@@ -19,41 +19,45 @@ const SearchBar = () => {
 
   const router = useRouter();
 
-  const debouncedSearch = debounce(async (searchTerm: string) => {
-    if (searchTerm.trim().length < 2) {
-      setSearchResults([]);
-      setShowResults(false);
-      return;
-    }
-
-    try {
-      const res = await fetch(
-        `/api/search?game=${encodeURIComponent(searchTerm)}`
-      );
-      if (!res.ok) {
-        console.error(`Debounced search: status ${res.status} ao buscar sugestões`);
+  // Use um ref para armazenar a função debounced
+  const debouncedSearchRef = useRef(
+    debounce(async (searchTerm: string) => {
+      if (searchTerm.trim().length < 2) {
         setSearchResults([]);
         setShowResults(false);
         return;
       }
 
-      const data = await res.json();
-      
-      if (data.appid) {
-        setSearchResults([{ appid: data.appid, name: data.name }]);
-      } else if (data.results && data.results.length > 0) {
-        setSearchResults(data.results);
-      } else {
-        setSearchResults([]);
-      }
+      try {
+        const res = await fetch(`/api/search?game=${encodeURIComponent(searchTerm)}`);
+        if (!res.ok) {
+          console.error(`Debounced search: status ${res.status} ao buscar sugestões`);
+          setSearchResults([]);
+          setShowResults(false);
+          return;
+        }
 
-      setShowResults(true);
-    } catch (err) {
-      console.error("Erro na busca (debounce):", err);
-      setSearchResults([]);
-      setShowResults(false);
-    }
-  }, 300);
+        const data = await res.json();
+
+        if (data.appid) {
+          setSearchResults([{ appid: data.appid, name: data.name }]);
+        } else if (data.results && data.results.length > 0) {
+          setSearchResults(data.results);
+        } else {
+          setSearchResults([]);
+        }
+
+        setShowResults(true);
+      } catch (err) {
+        console.error("Erro na busca (debounce):", err);
+        setSearchResults([]);
+        setShowResults(false);
+      }
+    }, 300)
+  );
+
+  // Simplifique o uso, só pra ficar mais legível
+  const debouncedSearch = debouncedSearchRef.current;
 
   useEffect(() => {
     if (selectedGame) return;
@@ -65,6 +69,7 @@ const SearchBar = () => {
       setShowResults(false);
     }
 
+    // Não coloque "debouncedSearch" no array de dependências
     return () => {
       debouncedSearch.cancel();
     };
