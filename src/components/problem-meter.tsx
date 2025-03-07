@@ -3,14 +3,13 @@
 import { useEffect, useState } from 'react';
 
 type ProblemMeterProps = {
-  level: number; // 0-100
+  level: number; 
 };
 
 const ProblemMeter = ({ level }: ProblemMeterProps) => {
   const [currentLevel, setCurrentLevel] = useState(0);
   
   useEffect(() => {
-    // Animate the meter level
     const timer = setTimeout(() => {
       if (currentLevel < level) {
         setCurrentLevel(prev => Math.min(prev + 2, level));
@@ -20,7 +19,6 @@ const ProblemMeter = ({ level }: ProblemMeterProps) => {
     return () => clearTimeout(timer);
   }, [currentLevel, level]);
   
-  // Determine color based on level
   const getMeterColor = () => {
     if (currentLevel < 30) return 'bg-green-500';
     if (currentLevel < 60) return 'bg-yellow-500';
@@ -28,7 +26,6 @@ const ProblemMeter = ({ level }: ProblemMeterProps) => {
     return 'bg-red-600';
   };
   
-  // Get level text description
   const getLevelText = () => {
     if (currentLevel < 30) return 'Mild Issues';
     if (currentLevel < 60) return 'Concerning';
@@ -46,7 +43,7 @@ const ProblemMeter = ({ level }: ProblemMeterProps) => {
           style={{ width: `${currentLevel}%` }}
         />
         
-        {/* Meter segments */}
+        
         <div className="absolute top-0 left-0 right-0 bottom-0 flex pointer-events-none">
           {[...Array(10)].map((_, i) => (
             <div 

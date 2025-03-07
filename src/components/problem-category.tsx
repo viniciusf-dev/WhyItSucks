@@ -22,7 +22,6 @@ type ProblemCategoryProps = {
   categories: CategoryData[];
 };
 
-// Map category names to icons
 const categoryIcons = {
   "Bugs": Bug,
   "Gameplay": Gamepad2,

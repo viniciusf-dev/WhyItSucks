@@ -19,17 +19,6 @@ const SearchBar = () => {
 
   const router = useRouter();
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const ping = await fetch("/api/search?game=ping");
-        console.log("Ping à rota /api/search:", ping.status);
-      } catch (err) {
-        console.error("Erro ao fazer ping na rota /api/search:", err);
-      }
-    })();
-  }, []);
-
   const debouncedSearch = debounce(async (searchTerm: string) => {
     if (searchTerm.trim().length < 2) {
       setSearchResults([]);
@@ -38,7 +27,9 @@ const SearchBar = () => {
     }
 
     try {
-      const res = await fetch(`/api/search?game=${encodeURIComponent(searchTerm)}`);
+      const res = await fetch(
+        `/api/search?game=${encodeURIComponent(searchTerm)}`
+      );
       if (!res.ok) {
         console.error(`Debounced search: status ${res.status} ao buscar sugestões`);
         setSearchResults([]);
@@ -47,7 +38,7 @@ const SearchBar = () => {
       }
 
       const data = await res.json();
-
+      
       if (data.appid) {
         setSearchResults([{ appid: data.appid, name: data.name }]);
       } else if (data.results && data.results.length > 0) {
@@ -77,7 +68,7 @@ const SearchBar = () => {
     return () => {
       debouncedSearch.cancel();
     };
-  }, [game, selectedGame]);
+  }, [game, selectedGame, debouncedSearch]);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {

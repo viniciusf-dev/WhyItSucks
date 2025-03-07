@@ -47,84 +47,89 @@ export async function summarizeReviews(reviews: any[], gameName: string): Promis
   const reviewsText = reviews.map((r) => r.review).join("\n");
 
   const prompt = `
-  Analise os seguintes reviews negativos do jogo ${gameName}:
+  Analyze the following negative reviews for the game ${gameName}:
 
   ${reviewsText}
 
-  Com base nesses reviews, por favor gere um resumo **exclusivamente** em formato JSON **válido** com a seguinte estrutura:
+  Based on these reviews, please generate a summary **exclusively** in **valid** JSON format with the following structure:
 
   {
-    "problemSummary": "Breve resumo geral dos principais problemas reportados",
+    "problemSummary": "A comprehensive yet concise analysis of the major issues reported by players, identifying patterns across the reviews and highlighting the most significant problems that affect the player experience. This summary should provide enough context to understand the overall sentiment and primary pain points without requiring reading all individual reviews. It should be roughly 3-5 sentences that effectively communicate the essence of player complaints.",
     "totalReviewsAnalyzed": 0,
     "problemCategories": [
       {
         "name": "Bugs",
         "percentage": 0,
-        "examples": ["exemplo de bug mencionado 1", "exemplo de bug mencionado 2"]
+        "examples": ["example of mentioned bug 1", "example of mentioned bug 2"]
       },
       {
         "name": "Performance",
         "percentage": 0,
-        "examples": ["exemplo de problema de performance 1", "exemplo de problema de performance 2"]
+        "examples": ["example of performance issue 1", "example of performance issue 2"]
       },
       {
         "name": "Gameplay",
         "percentage": 0,
-        "examples": ["exemplo de problema de gameplay 1", "exemplo de problema de gameplay 2"]
+        "examples": ["example of gameplay issue 1", "example of gameplay issue 2"]
       },
       {
         "name": "Design",
         "percentage": 0,
-        "examples": ["exemplo de problema de design 1", "exemplo de problema de design 2"]
+        "examples": ["example of design issue 1", "example of design issue 2"]
       },
       {
         "name": "Story",
         "percentage": 0,
-        "examples": ["exemplo de problema de história 1", "exemplo de problema de história 2"]
+        "examples": ["example of story issue 1", "example of story issue 2"]
       },
       {
-        "name": "Outros",
+        "name": "Other",
         "percentage": 0,
-        "examples": ["outro tipo de problema 1", "outro tipo de problema 2"]
+        "examples": ["other type of issue 1", "other type of issue 2"]
       }
     ],
     "topComplaints": [
       {
-        "complaint": "Descrição do problema mais recorrente",
+        "complaint": "Description of the most recurring problem",
         "mentions": 0,
-        "severity": "Alta/Média/Baixa"
+        "severity": "High/Medium/Low"
       },
       {
-        "complaint": "Outro problema recorrente",
+        "complaint": "Another recurring problem",
         "mentions": 0,
-        "severity": "Alta/Média/Baixa"
+        "severity": "High/Medium/Low"
       }
     ],
     "problemLevel": 0,
-    "dealBreakers": ["Problema crítico que pode fazer jogadores desistirem completamente do jogo"],
-    "positiveAspects": ["Aspectos positivos mencionados mesmo em reviews negativos"]
+    "dealBreakers": ["Critical issue that may cause players to completely abandon the game"]
   }
 
-  **Instruções importantes**:
-  1. "problemSummary" deve ser um texto conciso (máximo 2 frases) resumindo os problemas mais frequentes.
-  2. "totalReviewsAnalyzed" deve conter o número total de reviews analisados.
-  3. "problemCategories" deve conter as categorias de problemas com:
-    - Uma estimativa de porcentagem para cada uma, somando exatamente 100%.
-    - 1-3 exemplos concretos extraídos dos reviews para cada categoria.
-    - Use a categoria "Outros" para problemas que não se encaixam nas categorias principais.
-  4. "topComplaints" deve listar as 3-5 principais reclamações específicas (não categorias), cada qual com:
-    - O número de menções nos reviews.
-    - Uma classificação de severidade baseada no tom e linguagem dos reviews.
-  5. "problemLevel" é um número de 0 a 100 indicando a gravidade geral dos problemas, calculado considerando:
-    - Frequência das reclamações (quantos reviews mencionam)
-    - Severidade dos problemas (impacto na experiência de jogo)
-    - Tom emocional dos reviews (frustração, raiva, decepção)
-  6. "dealBreakers" deve listar problemas críticos que podem fazer jogadores abandonarem o jogo completamente.
-  7. "positiveAspects" deve capturar quaisquer aspectos positivos mencionados mesmo em reviews negativos.
+  **Important instructions**:
+  1. "problemSummary" should be a comprehensive analysis (3-5 sentences) that captures the essence of player complaints and their impact on the overall experience.
+  2. "totalReviewsAnalyzed" should contain the total number of reviews analyzed.
+  3. "problemCategories" should contain problem categories with:
+    - An estimated percentage for each, totaling exactly 100%.
+    - 1-3 concrete examples extracted from the reviews for each category.
+    - Use the "Other" category for problems that don't fit into the main categories.
+  4. "topComplaints" should list the 3-5 main specific complaints (not categories), each with:
+    - The number of mentions in the reviews.
+    - A severity classification based on the tone and language of the reviews.
+  5. "problemLevel" is a number from 0 to 100 indicating the overall severity of the problems, calculated considering:
+    - Frequency of complaints (how many reviews mention them)
+    - Severity of problems (impact on game experience)
+    - Emotional tone of reviews (frustration, anger, disappointment)
+  6. "problemLevelText" should be a text description of the problem severity based on the problemLevel value:
+    - "Mild Issues" if problemLevel < 30
+    - "Concerning" if problemLevel < 60
+    - "Major Problems" if problemLevel < 80
+    - "Virtually Unplayable" if problemLevel >= 80
+  7. "dealBreakers" should list critical problems that may cause players to completely abandon the game.
+  8. "positiveAspects" should capture any positive aspects mentioned even in negative reviews.
 
-  Se não houver reviews para analisar, retorne um JSON com valores padrão zeros e arrays vazios, com "problemSummary" indicando "Sem reviews disponíveis para análise".
+  If there are no reviews to analyze, return a JSON with default zero values and empty arrays, with "problemSummary" indicating "No reviews available for analysis."
 
-  Responda **somente** com o JSON válido, sem texto adicional ou explicações fora do objeto JSON.
+  Respond **only** with the valid JSON, without additional text or explanations outside the JSON object.
+  - No backticks, no \`\`\`json or any markdown formatting.
   `;
 
   try {
