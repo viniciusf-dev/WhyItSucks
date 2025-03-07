@@ -55,7 +55,7 @@
   }
 
   .scanline {
-    @apply pointer-events-none fixed inset-0 z-10 overflow-hidden opacity-20;
+    @apply pointer-events-none fixed inset-0 overflow-hidden opacity-20;
     background: repeating-linear-gradient(
       0deg,
       rgba(255, 255, 255, 0.1),
