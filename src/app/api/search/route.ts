@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { NextResponse } from "next/server";
 import { getGamesByName } from "../services/dbService";
 import { fetchSteamReviews } from "../services/reviewService";
