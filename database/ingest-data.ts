@@ -11,6 +11,15 @@ interface SteamGame {
   [key: string]: any;
 }
 
+interface BulkWriteResult {
+  insertedCount: number;
+  matchedCount: number;
+  modifiedCount: number;
+  deletedCount: number;
+  upsertedCount: number;
+  upsertedIds: { [key: number]: any };
+}
+
 const uri: string = process.env.MONGODB_URI || '';
 const dbName: string = "steamdb";
 const collectionName: string = "games";
@@ -43,6 +52,9 @@ async function importSteamGames(): Promise<void> {
     const batchSize: number = 5000;
     const batchPromises: Promise<any>[] = [];
 
+    let totalUpdated = 0;
+    let totalCreated = 0;
+
     for (let i = 0; i < games.length; i += batchSize) {
       const batch = games.slice(i, i + batchSize);
       const operations = batch.map(game => ({
@@ -54,14 +66,32 @@ async function importSteamGames(): Promise<void> {
       }));
 
       batchPromises.push(
-        collection.bulkWrite(operations).then(() => {
-          console.log(`Processed ${Math.min(i + batchSize, games.length)} of ${games.length} games`);
+        collection.bulkWrite(operations).then((result: BulkWriteResult) => {
+          const batchNumber = Math.floor(i / batchSize) + 1;
+          const totalBatches = Math.ceil(games.length / batchSize);
+          const batchStart = i + 1;
+          const batchEnd = Math.min(i + batchSize, games.length);
+          
+          const updated = result.modifiedCount;
+          const created = result.upsertedCount;
+          
+          totalUpdated += updated;
+          totalCreated += created;
+          
+          console.log(`=== Batch ${batchNumber}/${totalBatches} (Games ${batchStart}-${batchEnd} of ${games.length}) ===`);
+          console.log(`- Updated games: ${updated}`);
+          console.log(`- New indexed games: ${created}`);
+          console.log(`- Total processed games: ${updated + created}`);
         })
       );
     }
 
     await Promise.all(batchPromises);
 
+    console.log("\n=== Update summary ===");
+    console.log(`Total processed games: ${games.length}`);
+    console.log(`Total updated games: ${totalUpdated}`);
+    console.log(`Total created games: ${totalCreated}`);
     console.log("Import done.");
 
   } catch (error) {
