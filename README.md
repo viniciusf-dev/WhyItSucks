@@ -6,6 +6,14 @@
   <h3>The AI-Powered Negative Game Review Analyzer</h3>
 </div>
 
+[![Better Stack Badge](https://uptime.betterstack.com/status-badges/v3/monitor/1kmif.svg)](https://uptime.betterstack.com/?utm_source=status_badge)
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/viniciusf-dev/WhyItSucks/main)
+![Website](https://img.shields.io/website?up_message=online&up_color=green&down_message=offline&down_color=red&url=https://why-it-sucks.vercel.app/)
+
+![Static Badge](https://img.shields.io/badge/nextjs-white?style=for-the-badge&logo=nextdotjs&logoColor=white&labelColor=black&color=white)
+![Static Badge](https://img.shields.io/badge/typescript-%2306B6D4?style=for-the-badge&logo=typescript&labelColor=white&color=%233178C6)
+![Static Badge](https://img.shields.io/badge/tailwindcss-%2306B6D4?style=for-the-badge&logo=tailwindcss&labelColor=black&color=%2306B6D4)
+
 ## About WhyItSucks
 
 WhyItSucks is an open-source platform that uses AI to analyze negative video game reviews, providing gamers with detailed insights about potential issues before making a purchase. By scraping and processing thousands of negative reviews from Steam and other platforms, our tool identifies common complaints, bugs, and problems that might affect your gaming experience.
