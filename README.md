@@ -11,6 +11,7 @@
 ![Website](https://img.shields.io/website?up_message=online&up_color=green&down_message=offline&down_color=red&url=https://why-it-sucks.vercel.app/)
 
 ![Static Badge](https://img.shields.io/badge/nextjs-white?style=for-the-badge&logo=nextdotjs&logoColor=white&labelColor=black&color=white)
+![Static Badge](https://img.shields.io/badge/nodejs-white?style=for-the-badge&logo=nodedotjs&logoColor=white&labelColor=black&color=green)
 ![Static Badge](https://img.shields.io/badge/typescript-%2306B6D4?style=for-the-badge&logo=typescript&labelColor=white&color=%233178C6)
 ![Static Badge](https://img.shields.io/badge/tailwindcss-%2306B6D4?style=for-the-badge&logo=tailwindcss&labelColor=black&color=%2306B6D4)
 
