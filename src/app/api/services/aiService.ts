@@ -130,15 +130,18 @@ export async function summarizeReviews(reviews: any[], gameName: string): Promis
 
   Respond **only** with the valid JSON, without additional text or explanations outside the JSON object.
   - No backticks, no \`\`\`json or any markdown formatting.
+  - Never wrap the JSON in markdown codeblocks, you must always return only the JSON and nothing more.
   `;
 
   try {
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
     
     const result = await model.generateContent(prompt);
     
-    const summary = result.response.text();
+    let summary = result.response.text();
+    summary = summary.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+
     return summary;
   } catch (error) {
     console.error("Failed to call AI API:", error);
