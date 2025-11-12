@@ -9,7 +9,8 @@
     "lint": "next lint",
     "build.ts": "tsc",
     "start:db": "node dist/database/ingest-data.js",
-    "dev:db": "ts-node database/ingest-data.ts" 
+    "ingest": "tsx database/ingest-data.ts",
+    "dev:db": "ts-node database/ingest-data.ts"
   },
   "dependencies": {
     "@google/generative-ai": "^0.23.0",
@@ -44,6 +45,7 @@
     "eslint-config-next": "14.0.4",
     "postcss": "^8",
     "tailwindcss": "^3.3.0",
+    "tsx": "^4.20.6",
     "typescript": "^5.8.2"
   }
 }
